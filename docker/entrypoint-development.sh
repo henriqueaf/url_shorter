@@ -9,4 +9,7 @@ fi
 echo "Prepare Database"
 bin/rails db:prepare
 
+echo "Installing missing gems"
+bundle install
+
 exec "$@"
