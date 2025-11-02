@@ -1,16 +1,17 @@
 class UrlServices::GenerateUrlShortcode
   REDIS_COUNTER_KEY = "url_shorter:counter".freeze
 
-  def self.call(url)
-    new(url).call
+  def self.call
+    new().call
   end
 
-  def initialize(url)
-    @url = url
+  def initialize
+    @increment_number_service = REDIS
+    @hashids_service = HASHIDS
   end
 
   def call
-    counter = REDIS.incr(REDIS_COUNTER_KEY)
-    HASHIDS.encode(counter)
+    counter = @increment_number_service.incr(REDIS_COUNTER_KEY)
+    @hashids_service.encode(counter)
   end
 end

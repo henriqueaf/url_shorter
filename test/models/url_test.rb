@@ -2,30 +2,26 @@ require "test_helper"
 
 class UrlTest < ActiveSupport::TestCase
   test "fixture is valid" do
-    url = urls(:one)
-
-    assert url.valid?
+    url = build(:url)
     assert url.save!
   end
 
-  test "short_code cannot be null" do
-    url = urls(:one)
-    url.short_code = nil
+  test "long_url cannot be null" do
+    url = build(:url, long_url: nil)
 
     assert url.invalid?
+    assert_includes url.errors[:long_url], "can't be blank"
   end
 
-  test "long_url cannot be null" do
-    url = urls(:one)
-    url.long_url = nil
-
-    assert url.invalid?
+  test "short_code is generated before validation" do
+    new_url = build(:url, short_code: nil)
+    assert new_url.save!
+    assert new_url.short_code.present?
   end
 
   test "short_code should be unique" do
-    existing_url = urls(:one)
-    existing_url.save
-    new_url = Url.new(short_code: existing_url.short_code, long_url: "http://duplicate.com")
+    existing_url = create(:url)
+    new_url = build(:url, short_code: existing_url.short_code)
 
     exception = assert_raise(ActiveRecord::RecordNotUnique) { new_url.save! }
     assert_match(/duplicate key value violates unique constraint \"urls_pkey\"/, exception.message)
