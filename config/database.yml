@@ -23,6 +23,7 @@ default: &default
   username: <%= ENV.fetch('URL_SHORTER_DATABASE_USERNAME', 'postgres') %>
   password: <%= ENV.fetch('URL_SHORTER_DATABASE_PASSWORD', 'postgres') %>
   host: <%= ENV.fetch('URL_SHORTER_DATABASE_HOST', 'localhost') %>
+  port: <%= ENV.fetch('URL_SHORTER_DATABASE_PORT', 5432) %>
 
 
 development:
