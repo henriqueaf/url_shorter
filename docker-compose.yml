@@ -2,11 +2,16 @@ services:
   db:
     image: postgres:18-alpine
     container_name: url_shorter_postgres
-    # restart: unless-stopped
     volumes:
       - ./tmp/db:/var/lib/postgresql
     environment:
       POSTGRES_PASSWORD: postgres
+
+  redis:
+    image: redis:8.2.2-alpine
+    container_name: url_shorter_redis
+    volumes:
+      - ./tmp/redis:/data
 
   app:
     # This is for Mac M1 processors
@@ -32,3 +37,4 @@ services:
       - .:/url_shorter
     depends_on:
       - db
+      - redis
