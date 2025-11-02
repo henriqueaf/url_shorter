@@ -1,5 +1,5 @@
 class UrlServices::GenerateUrlShortcode
-  REDIS_COUNTER_KEY = 'url_shorter:counter'.freeze
+  REDIS_COUNTER_KEY = "url_shorter:counter".freeze
 
   def self.call(url)
     new(url).call

@@ -28,6 +28,6 @@ class UrlTest < ActiveSupport::TestCase
     new_url = Url.new(short_code: existing_url.short_code, long_url: "http://duplicate.com")
 
     exception = assert_raise(ActiveRecord::RecordNotUnique) { new_url.save! }
-    assert_match(/duplicate key value violates unique constraint \"urls_pkey\"/, exception.message )
+    assert_match(/duplicate key value violates unique constraint \"urls_pkey\"/, exception.message)
   end
 end
