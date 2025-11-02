@@ -7,7 +7,7 @@ class Url < ApplicationRecord
 
   def generate_short_code
     if short_code.blank? && long_url.present? && self.new_record?
-      self.short_code = UrlServices::GenerateUrlShortcode.call(self)
+      self.short_code = UrlServices::GenerateUrlShortcode.call()
     end
   end
 end
