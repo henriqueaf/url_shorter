@@ -12,7 +12,7 @@ class Api::V1::UrlsController < ApplicationController
 
   def redirect
     url = Url.find_by!(short_code: params.expect(:short_code))
-    redirect_to url.long_url, status: :found
+    redirect_to url.long_url, allow_other_host: true, status: :found
   rescue ActiveRecord::RecordNotFound
     render json: { error: "URL not found" }, status: :not_found
   end
